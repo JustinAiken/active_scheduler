@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yaml'
 
 describe ActiveScheduler::ResqueWrapper do
   describe ".wrap" do

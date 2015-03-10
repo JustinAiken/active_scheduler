@@ -1,4 +1,4 @@
-require 'active_job/scheduler'
+require 'active_scheduler'
 
 unless ENV["NO_COVERALLS"]
   require 'coveralls'

@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'active_job/scheduler'
 
-describe ActiveJob::Scheduler::ResqueWrapper do
+describe ActiveScheduler::ResqueWrapper do
   describe ".wrap" do
     let(:wrapped) { described_class.wrap schedule }
 

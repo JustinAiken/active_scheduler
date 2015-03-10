@@ -1,8 +1,8 @@
-[![Gem Version](http://img.shields.io/gem/v/activejob-scheduler.svg)](https://rubygems.org/gems/activejob-scheduler)[![Build Status](http://img.shields.io/travis/JustinAiken/activejob-scheduler/master.svg)](http://travis-ci.org/JustinAiken/activejob-scheduler) [![Coveralls branch](http://img.shields.io/coveralls/JustinAiken/activejob-scheduler/master.svg)](https://coveralls.io/r/JustinAiken/activejob-scheduler?branch=master)[![Code Climate](http://img.shields.io/codeclimate/github/JustinAiken/activejob-scheduler.svg)](https://codeclimate.com/github/JustinAiken/activejob-scheduler)
+[![Gem Version](http://img.shields.io/gem/v/active_scheduler.svg)](https://rubygems.org/gems/active_scheduler)[![Build Status](http://img.shields.io/travis/JustinAiken/active_scheduler/master.svg)](http://travis-ci.org/JustinAiken/active_scheduler) [![Coveralls branch](http://img.shields.io/coveralls/JustinAiken/active_scheduler/master.svg)](https://coveralls.io/r/JustinAiken/active_scheduler?branch=master)[![Code Climate](http://img.shields.io/codeclimate/github/JustinAiken/active_scheduler.svg)](https://codeclimate.com/github/JustinAiken/active_scheduler)
 
-# activejob-scheduler
+# active_scheduler
 
-activejob-scheduler is a gem to take a standard schedule one would use with [resque scheduler](https://github.com/resque/resque-scheduler) and wraps it to work with [ActiveJob](https://github.com/rails/rails/tree/master/activejob).
+active_scheduler is a gem to take a standard schedule one would use with [resque scheduler](https://github.com/resque/resque-scheduler) and wraps it to work with [ActiveJob](https://github.com/rails/rails/tree/master/activejob).
 
 Currently only Resque is supported, but pull requests to add other queues (sidekiq, etc) would be welcomed!
 
@@ -18,7 +18,7 @@ Currently only Resque is supported, but pull requests to add other queues (sidek
 
 #### Installation
 
-Add `activejob-scheduler` to your Gemfile.
+Add `active_scheduler` to your Gemfile.
 
 ## Usage
 
@@ -27,13 +27,13 @@ In your Resque initializer:
 ```ruby
 require 'resque/server'
 require 'resque/scheduler/server'
-require 'active_job/scheduler'
+require 'active_scheduler'
 
 # ... Set up your Resque ...
 ...
 
 yaml_schedule    = YAML.load_file("#{Rails.root}/config/resque_schedule.yaml") || {}
-wrapped_schedule = ActiveJob::Scheduler::ResqueWrapper.wrap yaml_schedule
+wrapped_schedule = ActiveScheduler::ResqueWrapper.wrap yaml_schedule
 Resque.schedule  = wrapped_schedule
 ```
 

@@ -15,12 +15,12 @@ module ActiveScheduler
       schedule = HashWithIndifferentAccess.new(schedule)
 
       schedule.each do |job, opts|
-        next if opts[:class] =~ /ActiveJob::Scheduler::ResqueWrapper/
+        next if opts[:class] =~ /ActiveScheduler::ResqueWrapper/
 
         queue = opts[:queue] || 'default'
 
         schedule[job] = {
-          class:        'ActiveJob::Scheduler::ResqueWrapper',
+          class:        'ActiveScheduler::ResqueWrapper',
           queue:        queue,
           args: [{
             job_class:  opts[:class],

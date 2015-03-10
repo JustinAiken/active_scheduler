@@ -10,7 +10,7 @@ describe ActiveScheduler::ResqueWrapper do
 
       it "queues up a simple job" do
         expect(wrapped['simple_job']).to eq(
-          "class"       => "ActiveJob::Scheduler::ResqueWrapper",
+          "class"       => "ActiveScheduler::ResqueWrapper",
           "queue"       => "simple",
           "description" => "It's a simple job.",
           "every"       => "30s",
@@ -28,7 +28,7 @@ describe ActiveScheduler::ResqueWrapper do
 
       it "queues up a simple job" do
         expect(wrapped['simple_job']).to eq(
-          "class"       => "ActiveJob::Scheduler::ResqueWrapper",
+          "class"       => "ActiveScheduler::ResqueWrapper",
           "queue"       => "simple",
           "description" => "It's a simple job.",
           "every"       => "30s",

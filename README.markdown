@@ -1,4 +1,4 @@
-[![Build Status](http://img.shields.io/travis/JustinAiken/activejob-scheduler/master.svg)](http://travis-ci.org/JustinAiken/activejob-scheduler) [![Coveralls branch](http://img.shields.io/coveralls/JustinAiken/activejob-scheduler/master.svg)](https://coveralls.io/r/JustinAiken/activejob-scheduler?branch=master)[![Code Climate](http://img.shields.io/codeclimate/github/JustinAiken/activejob-scheduler.svg)](https://codeclimate.com/github/JustinAiken/activejob-scheduler)
+[![Gem Version](http://img.shields.io/gem/v/activejob-scheduler.svg)](https://rubygems.org/gems/activejob-scheduler)[![Build Status](http://img.shields.io/travis/JustinAiken/activejob-scheduler/master.svg)](http://travis-ci.org/JustinAiken/activejob-scheduler) [![Coveralls branch](http://img.shields.io/coveralls/JustinAiken/activejob-scheduler/master.svg)](https://coveralls.io/r/JustinAiken/activejob-scheduler?branch=master)[![Code Climate](http://img.shields.io/codeclimate/github/JustinAiken/activejob-scheduler.svg)](https://codeclimate.com/github/JustinAiken/activejob-scheduler)
 
 # activejob-scheduler
 

@@ -1,0 +1,18 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.0
+  - 2.1.5
+  - 2.2.0
+matrix:
+  allow_failures:
+    - rvm: 1.9.3
+env:
+  - "RAILS_VERSION=4.2.0"
+notifications:
+  email:
+    recipients:
+      - 60tonangel@gmail.com
+    on_success: change
+    on_failure: change

@@ -1,0 +1,7 @@
+cron_job:
+  cron: "* * * *"
+  queue: "cron"
+  class: "CronJob"
+  args:
+    -
+  description: "It's a cronned job."

@@ -1,0 +1,8 @@
+{
+  "simple_job": {
+    "every": "30s",
+    "queue": "simple",
+    "class": "SimpleJob",
+    "description": "It's a simple job."
+  }
+}

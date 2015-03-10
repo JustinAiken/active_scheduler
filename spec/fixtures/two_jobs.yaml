@@ -1,0 +1,10 @@
+job_1:
+  every: "30s"
+  queue: "simple"
+  class: "JobOne"
+  description: "It's a simple job 1."
+job_2:
+  every: "30s"
+  queue: "simple"
+  class: "JobTwo"
+  description: "It's a simple job 2"

@@ -23,7 +23,7 @@ module ActiveScheduler
           class:        'ActiveScheduler::ResqueWrapper',
           queue:        queue,
           args: [{
-            job_class:  opts[:class],
+            job_class:  opts[:class] || job,
             queue_name: queue,
             arguments:  opts[:arguments]
           }]

@@ -66,6 +66,25 @@ describe ActiveScheduler::ResqueWrapper do
         expect(wrapped['no_queue_job']['queue']).to eq 'default'
       end
     end
+
+    context "when the schedule name is the class name" do
+      let(:schedule) { YAML.load_file 'spec/fixtures/schedule_name_is_class_name.yaml' }
+
+      it "queues up a job, using the schedule name for the class name" do
+        expect(wrapped['MyScheduleNameIsClassNameJob']).to eq(
+          "class"       => "ActiveScheduler::ResqueWrapper",
+          "queue"       => "myscheduledjobqueue",
+          "description" => "It's a self-named job.",
+          "cron"       => "* * * * *",
+          "args"        => [{
+            "job_class"  => "MyScheduleNameIsClassNameJob",
+            "queue_name" => "myscheduledjobqueue",
+            "arguments"  => nil
+          }]
+        )
+      end
+
+    end
   end
 
   describe ".perform" do

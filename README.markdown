@@ -37,6 +37,24 @@ wrapped_schedule = ActiveScheduler::ResqueWrapper.wrap yaml_schedule
 Resque.schedule  = wrapped_schedule
 ```
 
+
+## Example Format
+
+```yaml
+simple_job:
+  every: "30s"
+  queue: "simple"
+  class: "SimpleJob"
+  args:
+    -
+  description: "It's a simple job."
+
+ThisIsTheClass:
+  cron: "* * * *"
+  queue: 'cronny'
+  description: "Will call the ThisIsTheClass class"
+```
+
 ## Credits
 
 - Written by [@JustinAiken](https://www.github.com/JustinAiken)

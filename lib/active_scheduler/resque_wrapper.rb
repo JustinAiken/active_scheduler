@@ -3,13 +3,17 @@ module ActiveScheduler
 
     def self.perform(job_data)
       klass = Object.const_get job_data['job_class']
-      method = job_data['active_job'] ? :perform_later : :perform
+      method = get_method(klass)
 
       if job_data.has_key? 'arguments'
         klass.public_send(method, *job_data['arguments'])
       else
         klass.public_send(method)
       end
+    end
+
+    def self.get_method(klass)
+      klass.superclass == ActiveJob::Base ? :perform_later : :perform
     end
 
     def self.wrap(schedule)
@@ -26,8 +30,7 @@ module ActiveScheduler
           args: [{
             job_class:  opts[:class] || job,
             queue_name: queue,
-            arguments:  opts[:arguments],
-            active_job: opts.fetch(:active_job, false)
+            arguments:  opts[:arguments]
           }]
         }
 

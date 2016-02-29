@@ -17,8 +17,7 @@ describe ActiveScheduler::ResqueWrapper do
           "args"        => [{
             "job_class"  => "SimpleJob",
             "queue_name" => "simple",
-            "arguments"  => nil,
-            "active_job" => true
+            "arguments"  => nil
           }],
         )
       end
@@ -36,8 +35,7 @@ describe ActiveScheduler::ResqueWrapper do
           "args"        => [{
             "job_class"  => "SimpleJob",
             "queue_name" => "simple",
-            "arguments"  => nil,
-            "active_job" => false
+            "arguments"  => nil
           }],
         )
       end
@@ -55,8 +53,7 @@ describe ActiveScheduler::ResqueWrapper do
           "args"        => [{
             "job_class"  => "SimpleJob",
             "queue_name" => "simple",
-            "arguments"  => nil,
-            "active_job" => true
+            "arguments"  => nil
           }]
         )
       end
@@ -100,8 +97,7 @@ describe ActiveScheduler::ResqueWrapper do
           "args"        => [{
             "job_class"  => "MyScheduleNameIsClassNameJob",
             "queue_name" => "myscheduledjobqueue",
-            "arguments"  => nil,
-            "active_job" => true
+            "arguments"  => nil
           }]
         )
       end
@@ -111,10 +107,15 @@ describe ActiveScheduler::ResqueWrapper do
 
   describe ".perform" do
     context 'with active job' do
-      class TestKlass
+      class ActiveJob::Base
+        def perform(*args)
+        end
       end
 
-      let(:job_data) { {'job_class' => 'TestKlass', 'active_job' => true} }
+      class TestKlass < ActiveJob::Base
+      end
+
+      let(:job_data) { {'job_class' => 'TestKlass'} }
 
       after { described_class.perform job_data }
 
@@ -123,31 +124,31 @@ describe ActiveScheduler::ResqueWrapper do
       end
 
       context "with arguments" do
-        let(:job_data) { {'job_class' => 'TestKlass', 'arguments' => [1, 2], 'active_job' => true} }
+        let(:job_data) { {'job_class' => 'TestKlass', 'arguments' => [1, 2]} }
 
         it "passes the arguments" do
-          expect(TestKlass).to receive(:perform_later).with 1, 2
+          expect(TestKlass).to receive(:perform_later).with(1, 2).and_return(true)
         end
       end
     end
 
     context 'with non active job' do
-      class TestKlass
+      class AnotherTestKlass
       end
 
-      let(:job_data) { {'job_class' => 'TestKlass', 'active_job' => false} }
+      let(:job_data) { {'job_class' => 'AnotherTestKlass'} }
 
       after { described_class.perform job_data }
 
-      it "gets the true job class and ActiveJob's it up" do
-        expect(TestKlass).to receive :perform
+      it "gets the job and passes it without changing" do
+        expect(AnotherTestKlass).to receive(:perform)
       end
 
       context "with arguments" do
-        let(:job_data) { {'job_class' => 'TestKlass', 'arguments' => [1, 2], 'active_job' => false} }
+        let(:job_data) { {'job_class' => 'AnotherTestKlass', 'arguments' => [1, 2]} }
 
         it "passes the arguments" do
-          expect(TestKlass).to receive(:perform).with 1, 2
+          expect(AnotherTestKlass).to receive(:perform).with(1, 2)
         end
       end
     end

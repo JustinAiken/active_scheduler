@@ -4,3 +4,5 @@ MyScheduleNameIsClassNameJob:
   args:
     -
   description: "It's a self-named job."
+  active_job: true
+  

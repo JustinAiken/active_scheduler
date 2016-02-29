@@ -3,6 +3,7 @@
     "every": "30s",
     "queue": "simple",
     "class": "SimpleJob",
-    "description": "It's a simple job."
+    "description": "It's a simple job.",
+    "active_job": true
   }
 }

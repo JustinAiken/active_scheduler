@@ -5,3 +5,4 @@ cron_job:
   args:
     -
   description: "It's a cronned job."
+  active_job: true

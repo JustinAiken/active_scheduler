@@ -3,11 +3,12 @@ module ActiveScheduler
 
     def self.perform(job_data)
       klass = Object.const_get job_data['job_class']
+      method = job_data['active_job'] ? :perform_later : :perform
 
       if job_data.has_key? 'arguments'
-        klass.perform_later *job_data['arguments']
+        klass.public_send(method, *job_data['arguments'])
       else
-        klass.perform_later
+        klass.public_send(method)
       end
     end
 
@@ -25,7 +26,8 @@ module ActiveScheduler
           args: [{
             job_class:  opts[:class] || job,
             queue_name: queue,
-            arguments:  opts[:arguments]
+            arguments:  opts[:arguments],
+            active_job: opts.fetch(:active_job, false)
           }]
         }
 

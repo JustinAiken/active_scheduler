@@ -15,7 +15,9 @@ module ActiveScheduler
       schedule = HashWithIndifferentAccess.new(schedule)
 
       schedule.each do |job, opts|
-        next if opts[:class] =~ /ActiveScheduler::ResqueWrapper/
+        class_name = opts[:class] || job
+        next if class_name =~ /ActiveScheduler::ResqueWrapper/
+        next unless class_name.constantize <= ActiveJob::Base
 
         queue = opts[:queue] || 'default'
 
@@ -23,7 +25,7 @@ module ActiveScheduler
           class:        'ActiveScheduler::ResqueWrapper',
           queue:        queue,
           args: [{
-            job_class:  opts[:class] || job,
+            job_class:  class_name,
             queue_name: queue,
             arguments:  opts[:arguments]
           }]

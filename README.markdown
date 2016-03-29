@@ -55,6 +55,8 @@ ThisIsTheClass:
   description: "Will call the ThisIsTheClass class"
 ```
 
+Only classes that are descended from `ActiveJob::Base` will be wrapped
+
 ## Credits
 
 - Written by [@JustinAiken](https://www.github.com/JustinAiken)

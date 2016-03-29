@@ -9,6 +9,7 @@ describe ActiveScheduler::ResqueWrapper do
       let(:schedule) { YAML.load_file 'spec/fixtures/simple_job.yaml' }
 
       it "queues up a simple job" do
+        stub_jobs("SimpleJob")
         expect(wrapped['simple_job']).to eq(
           "class"       => "ActiveScheduler::ResqueWrapper",
           "queue"       => "simple",
@@ -21,12 +22,26 @@ describe ActiveScheduler::ResqueWrapper do
           }]
         )
       end
+
+      context "job is not an active job descendant" do
+        it "doesn't wrap" do
+          stub_const("SimpleJob", Class.new)
+          expect(wrapped['simple_job']).to eq(
+            "class"       => "SimpleJob",
+            "queue"       => "simple",
+            "description" => "It's a simple job.",
+            "every"       => "30s",
+            "args"        => [nil],
+          )
+        end
+      end
     end
 
     context "with a simple job json" do
       let(:schedule) { YAML.load_file 'spec/fixtures/simple_job.json' }
 
       it "queues up a simple job" do
+        stub_jobs("SimpleJob")
         expect(wrapped['simple_job']).to eq(
           "class"       => "ActiveScheduler::ResqueWrapper",
           "queue"       => "simple",
@@ -45,6 +60,7 @@ describe ActiveScheduler::ResqueWrapper do
       let(:schedule) { YAML.load_file 'spec/fixtures/two_jobs.yaml' }
 
       it "queues them all up simple job" do
+        stub_jobs("JobOne", "JobTwo")
         expect(wrapped['job_1']['args'][0]['job_class']).to eq 'JobOne'
         expect(wrapped['job_2']['args'][0]['job_class']).to eq 'JobTwo'
       end
@@ -54,6 +70,7 @@ describe ActiveScheduler::ResqueWrapper do
       let(:schedule) { YAML.load_file 'spec/fixtures/cron_job.yaml' }
 
       it "uses that instead" do
+        stub_jobs("CronJob")
         expect(wrapped['cron_job']['cron']).to eq '* * * *'
         expect(wrapped['cron_job']['every']).to be_nil
       end
@@ -63,6 +80,7 @@ describe ActiveScheduler::ResqueWrapper do
       let(:schedule) { YAML.load_file 'spec/fixtures/no_queue.yaml' }
 
       it "uses 'default'" do
+        stub_jobs("SimpleJob")
         expect(wrapped['no_queue_job']['queue']).to eq 'default'
       end
     end
@@ -71,6 +89,7 @@ describe ActiveScheduler::ResqueWrapper do
       let(:schedule) { YAML.load_file 'spec/fixtures/schedule_name_is_class_name.yaml' }
 
       it "queues up a job, using the schedule name for the class name" do
+        stub_jobs("MyScheduleNameIsClassNameJob")
         expect(wrapped['MyScheduleNameIsClassNameJob']).to eq(
           "class"       => "ActiveScheduler::ResqueWrapper",
           "queue"       => "myscheduledjobqueue",
@@ -83,7 +102,6 @@ describe ActiveScheduler::ResqueWrapper do
           }]
         )
       end
-
     end
   end
 

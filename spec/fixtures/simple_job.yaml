@@ -3,5 +3,6 @@ simple_job:
   queue: "simple"
   class: "SimpleJob"
   args:
-    -
+    - foo-arg-1
+    - foo-arg-2
   description: "It's a simple job."

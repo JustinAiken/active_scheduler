@@ -18,7 +18,7 @@ describe ActiveScheduler::ResqueWrapper do
           "args"        => [{
             "job_class"  => "SimpleJob",
             "queue_name" => "simple",
-            "arguments"  => nil
+            "arguments"  => ['foo-arg-1', 'foo-arg-2'],
           }]
         )
       end
@@ -31,7 +31,7 @@ describe ActiveScheduler::ResqueWrapper do
             "queue"       => "simple",
             "description" => "It's a simple job.",
             "every"       => "30s",
-            "args"        => [nil],
+            "args"        => ['foo-arg-1', 'foo-arg-2'],
           )
         end
       end
@@ -50,7 +50,7 @@ describe ActiveScheduler::ResqueWrapper do
           "args"        => [{
             "job_class"  => "SimpleJob",
             "queue_name" => "simple",
-            "arguments"  => nil
+            "arguments"  => "foo-argument",
           }]
         )
       end
@@ -98,7 +98,7 @@ describe ActiveScheduler::ResqueWrapper do
           "args"        => [{
             "job_class"  => "MyScheduleNameIsClassNameJob",
             "queue_name" => "myscheduledjobqueue",
-            "arguments"  => nil
+            "arguments"  => [nil]
           }]
         )
       end

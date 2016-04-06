@@ -20,6 +20,14 @@ module ActiveScheduler
         next unless class_name.constantize <= ActiveJob::Base
 
         queue = opts[:queue] || 'default'
+        args = opts[:args]
+
+        if !args && opts.has_key?(:arguments)
+          warn 'active_scheduler: [DEPRECATION] using the `arguments` key in ' \
+            'your resque schedule will soon be deprecated. Please revert to ' \
+            'the resque standard `args` key.'
+          args = opts[:arguments]
+        end
 
         schedule[job] = {
           class:        'ActiveScheduler::ResqueWrapper',
@@ -27,7 +35,7 @@ module ActiveScheduler
           args: [{
             job_class:  class_name,
             queue_name: queue,
-            arguments:  opts[:arguments]
+            arguments:  args
           }]
         }
 

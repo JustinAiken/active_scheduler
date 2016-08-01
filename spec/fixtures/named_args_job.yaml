@@ -1,0 +1,9 @@
+named_args_job:
+  every: "30s"
+  queue: "simple"
+  class: "NamedArgsJob"
+  args:
+    - foo: 1
+      bar: 2
+  description: "It's a named args job."
+  named_args: true

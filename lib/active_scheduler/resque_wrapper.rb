@@ -3,9 +3,16 @@ module ActiveScheduler
 
     def self.perform(job_data)
       klass = Object.const_get job_data['job_class']
+      named_args = job_data.delete('named_args') || false
 
       if job_data.has_key? 'arguments'
-        klass.perform_later *job_data['arguments']
+        if named_args
+          args = job_data['arguments'].first.symbolize_keys
+        else
+          args = job_data['arguments']
+        end
+
+        named_args ? klass.perform_later(**args) : klass.perform_later(*args)
       else
         klass.perform_later
       end
@@ -21,6 +28,7 @@ module ActiveScheduler
 
         queue = opts[:queue] || 'default'
         args = opts[:args]
+        named_args = opts[:named_args] || false
 
         if !args && opts.has_key?(:arguments)
           warn 'active_scheduler: [DEPRECATION] using the `arguments` key in ' \
@@ -35,9 +43,11 @@ module ActiveScheduler
           args: [{
             job_class:  class_name,
             queue_name: queue,
-            arguments:  args
+            arguments:  args,
           }]
         }
+
+        schedule[job][:args].first.merge!({ named_args: named_args }) if named_args
 
         schedule[job][:description] = opts.fetch(:description, nil) if opts.fetch(:description, nil)
         schedule[job][:every]       = opts.fetch(:every, nil)       if opts.fetch(:every, nil)

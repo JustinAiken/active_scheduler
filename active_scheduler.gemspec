@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "active_scheduler"
   s.version     = ActiveScheduler::VERSION
   s.authors     = ["Justin Aiken"]
-  s.email       = ["jaiken@rocketmade.com"]
+  s.email       = ["60tonangel@gmail.com"]
   s.license     = 'MIT'
   s.homepage    = "https://github.com/JustinAiken/active_scheduler"
   s.summary     = %q{Scheduling for ActiveJob}

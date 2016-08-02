@@ -78,7 +78,11 @@ simple_job:
 
 - Written by [@JustinAiken](https://www.github.com/JustinAiken)
 - Wrapper class idea by [@ryanwjackson](https://www.github.com/ryanwjackson)
-- Special thanks to [Rocketmade](http://www.rocketmade.com/) for development resources.
+- Special thanks to [Rocketmade](https://www.rocketmade.com/) for development resources.
+- Other Contributors:
+  - @jeremycrosbie
+  - @ximus
+  - @jdguzman
 
 ## License
 

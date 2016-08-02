@@ -10,7 +10,6 @@ Currently only Resque is supported, but pull requests to add other queues (sidek
 
 - Rails
   - ActiveJob 4.2+
-  - ActiveSupport 4.2+
 - Resque
 - Resque Scheduler
 

@@ -6,4 +6,6 @@ rails         = "~> #{rails_version}"
 gem "activejob",     rails
 gem "activesupport", rails
 
+gem "guard-rspec", '~> 4.2' unless ENV['CI']
+
 gemspec

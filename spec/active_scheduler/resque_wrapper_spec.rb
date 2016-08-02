@@ -103,6 +103,26 @@ describe ActiveScheduler::ResqueWrapper do
         )
       end
     end
+
+    context "when the schedule is for a job with named arguments" do
+      let(:schedule) { YAML.load_file 'spec/fixtures/named_args_job.yaml' }
+
+      it "queues up a job, specifing that there are named args in the job" do
+        stub_jobs("NamedArgsJob")
+        expect(wrapped['named_args_job']).to eq(
+          "class"       => "ActiveScheduler::ResqueWrapper",
+          "queue"       => "simple",
+          "description" => "It's a named args job.",
+          "every"       => "30s",
+          "args"        => [{
+            "job_class"  => "NamedArgsJob",
+            "queue_name" => "simple",
+            "arguments"  => [{'foo' => 1, 'bar' => 2}],
+            "named_args" => true
+          }]
+        )
+      end
+    end
   end
 
   describe ".perform" do
@@ -122,6 +142,20 @@ describe ActiveScheduler::ResqueWrapper do
 
       it "passes the arguments" do
         expect(TestKlass).to receive(:perform_later).with 1, 2
+      end
+    end
+
+    context "with named_arguments specified" do
+      let(:job_data) do
+        {
+          'job_class' => 'TestKlass',
+          'arguments' => [{ 'foo' => 1, 'bar' => 2 }],
+          'named_args' => true
+        }
+      end
+
+      it "passed the arguments as Named args" do
+        expect(TestKlass).to receive(:perform_later).with(foo: 1, bar: 2)
       end
     end
   end

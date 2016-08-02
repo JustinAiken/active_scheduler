@@ -57,6 +57,23 @@ ThisIsTheClass:
 
 Only classes that are descended from `ActiveJob::Base` will be wrapped
 
+### Job Classes With Named Args
+
+If you have a job class that uses named arguments you can specify that. `args`
+should be a hash nested in the array and you need to add the named_args key.
+
+```yaml
+simple_job:
+  every: "30s"
+  queue: "simple"
+  class: "SimpleJob"
+  args:
+    - foo: 1
+      bar: 2
+  description: "It's a simple job."
+  named_args: true
+```
+
 ## Credits
 
 - Written by [@JustinAiken](https://www.github.com/JustinAiken)

@@ -1,6 +1,6 @@
 # 0.3.0
 
-- :boom: active_support dependency
+- Remove explicit active_support dependency (it's pulled in by activejob)
 - Updated testing matrix for more rubies 💎💎💎
 - Support named args [#6](https://github.com/JustinAiken/active_scheduler/pull/6) (Thanks @jdguzman)
 

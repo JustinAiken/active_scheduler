@@ -24,9 +24,11 @@ module ActiveScheduler
       schedule.each do |job, opts|
         class_name = opts[:class] || job
         next if class_name =~ /ActiveScheduler::ResqueWrapper/
-        next unless class_name.constantize <= ActiveJob::Base
+        
+        klass = class_name.constantize
+        next unless klass <= ActiveJob::Base
 
-        queue = opts[:queue] || 'default'
+        queue = opts[:queue] || klass.queue_name
         args = opts[:args]
         named_args = opts[:named_args] || false
 

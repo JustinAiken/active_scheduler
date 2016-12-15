@@ -79,9 +79,14 @@ describe ActiveScheduler::ResqueWrapper do
     context "when the queue is blank" do
       let(:schedule) { YAML.load_file 'spec/fixtures/no_queue.yaml' }
 
-      it "uses 'default'" do
-        stub_jobs("SimpleJob")
-        expect(wrapped['no_queue_job']['queue']).to eq 'default'
+      it "uses the job's queue" do
+        simple_job = Class.new(ActiveJob::Base) do
+          queue_as :myscheduledjobqueue
+        end
+        
+        stub_const("SimpleJob", simple_job)
+        
+        expect(wrapped['no_queue_job']['queue']).to eq 'myscheduledjobqueue'
       end
     end
 

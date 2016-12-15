@@ -1,3 +1,6 @@
+# 0.4.0
+- Use job's queue instead of hardcoded `default` [#9](https://github.com/JustinAiken/active_scheduler/pull/9) (Thanks @r3trofitted)
+
 # 0.3.0
 
 - Remove explicit active_support dependency (it's pulled in by activejob)

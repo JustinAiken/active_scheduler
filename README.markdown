@@ -83,6 +83,7 @@ simple_job:
   - @jeremycrosbie
   - @ximus
   - @jdguzman
+  - @r3trofitted
 
 ## License
 

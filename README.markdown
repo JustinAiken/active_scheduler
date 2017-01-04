@@ -81,10 +81,11 @@ simple_job:
 - Wrapper class idea by [@ryanwjackson](https://www.github.com/ryanwjackson)
 - Special thanks to [Rocketmade](https://www.rocketmade.com/) for development resources.
 - Other Contributors:
-  - @jeremycrosbie
-  - @ximus
-  - @jdguzman
-  - @r3trofitted
+  - [@jeremycrosbie](https://github.com/jeremycrosbie)
+  - [@ximus](https://github.com/ximus)
+  - [@jdguzman](https://github.com/jdguzman)
+  - [@r3trofitted](https://github.com/r3trofitted)
+  - [@blahutka](https://github.com/blahutka)
 
 ## License
 

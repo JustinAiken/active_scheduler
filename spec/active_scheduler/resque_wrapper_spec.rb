@@ -15,6 +15,7 @@ describe ActiveScheduler::ResqueWrapper do
           "queue"       => "simple",
           "description" => "It's a simple job.",
           "every"       => "30s",
+          "rails_env"   => "test",
           "args"        => [{
             "job_class"  => "SimpleJob",
             "queue_name" => "simple",
@@ -31,6 +32,7 @@ describe ActiveScheduler::ResqueWrapper do
             "queue"       => "simple",
             "description" => "It's a simple job.",
             "every"       => "30s",
+            "rails_env"   => "test",
             "args"        => ['foo-arg-1', 'foo-arg-2'],
           )
         end

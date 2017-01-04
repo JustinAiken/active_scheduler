@@ -9,8 +9,9 @@ Currently only Resque is supported, but pull requests to add other queues (sidek
 ## Requirements/Support
 
 - Ruby 2.0+
-- Rails
-  - ActiveJob 4.2+
+- ActiveJob
+  - 4.2 is tested and used in production
+  - 5.0 is tested against CI, but I haven't tried it in production.
 - Resque
 - Resque Scheduler
 

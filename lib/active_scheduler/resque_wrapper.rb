@@ -55,6 +55,7 @@ module ActiveScheduler
         schedule[job][:every]       = opts.fetch(:every, nil)       if opts.fetch(:every, nil)
         schedule[job][:cron]        = opts.fetch(:cron, nil)        if opts.fetch(:cron, nil)
         schedule[job][:rails_env]   = opts.fetch(:rails_env, nil)   if opts.fetch(:rails_env, nil)
+        schedule[job][:persist]     = true                          if opts.fetch(:persist, nil)
       end
     end
   end

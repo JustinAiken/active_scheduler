@@ -23,8 +23,8 @@ module ActiveScheduler
 
       schedule.each do |job, opts|
         class_name = opts[:class] || job
-        next if class_name =~ /ActiveScheduler::ResqueWrapper/
-        
+        next if class_name =~ /#{self.to_s}/
+
         klass = class_name.constantize
         next unless klass <= ActiveJob::Base
 
@@ -40,13 +40,13 @@ module ActiveScheduler
         end
 
         schedule[job] = {
-          class:        'ActiveScheduler::ResqueWrapper',
+          class:        self.to_s,
           queue:        queue,
           args: [{
-            job_class:  class_name,
-            queue_name: queue,
-            arguments:  args,
-          }]
+                   job_class:  class_name,
+                   queue_name: queue,
+                   arguments:  args,
+                 }]
         }
 
         schedule[job][:args].first.merge!({ named_args: named_args }) if named_args

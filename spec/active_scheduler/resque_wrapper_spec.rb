@@ -37,6 +37,29 @@ describe ActiveScheduler::ResqueWrapper do
           )
         end
       end
+
+      context 'with a custom wrapper class' do
+        class CustomWrapper < ActiveScheduler::ResqueWrapper
+        end
+
+        let(:schedule) { YAML.load_file 'spec/fixtures/simple_job.yaml' }
+
+        it "queues up a simple job" do
+          stub_jobs("SimpleJob")
+          expect(CustomWrapper.wrap(schedule)['simple_job']).to eq(
+            "class"       => "CustomWrapper",
+            "queue"       => "simple",
+            "description" => "It's a simple job.",
+            "every"       => "30s",
+            "rails_env"   => "test",
+            "args"        => [{
+               "job_class"  => "SimpleJob",
+               "queue_name" => "simple",
+               "arguments"  => ['foo-arg-1', 'foo-arg-2'],
+              }]
+           )
+        end
+      end
     end
 
     context "with a simple job json" do

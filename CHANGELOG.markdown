@@ -1,6 +1,7 @@
 # Next
 
 - Add `persist` option [#15](https://github.com/JustinAiken/active_scheduler/pull/15) (Thanks @SpiffyStores)
+- Remove hardcoded class references [#16](https://github.com/JustinAiken/active_scheduler/pull/16) (Thanks @kensentor)
 
 # 0.5.0
 - Expand Travis matrix to include Rails 5 and more ruby versions

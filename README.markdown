@@ -87,6 +87,7 @@ simple_job:
   - [@r3trofitted](https://github.com/r3trofitted)
   - [@blahutka](https://github.com/blahutka)
   - [@SpiffyStores](https://github.com/SpiffyStores)
+  - [@kensentor](https://github.com/kensentor)
 
 ## License
 

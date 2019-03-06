@@ -1,3 +1,7 @@
+# Next
+
+- Add `persist` option [#15](https://github.com/JustinAiken/active_scheduler/pull/15) (Thanks @SpiffyStores)
+
 # 0.5.0
 - Expand Travis matrix to include Rails 5 and more ruby versions
 - Allow `rails_env` option since [resque-scheduler](https://github.com/resque/resque-scheduler) does [#10](https://github.com/JustinAiken/active_scheduler/pull/10) (Thanks @blahutka)

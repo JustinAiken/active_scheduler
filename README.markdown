@@ -86,6 +86,7 @@ simple_job:
   - [@jdguzman](https://github.com/jdguzman)
   - [@r3trofitted](https://github.com/r3trofitted)
   - [@blahutka](https://github.com/blahutka)
+  - [@SpiffyStores](https://github.com/SpiffyStores)
 
 ## License
 

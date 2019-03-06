@@ -1,4 +1,4 @@
-# Next
+# 0.6.0
 
 - Add `persist` option [#15](https://github.com/JustinAiken/active_scheduler/pull/15) (Thanks @SpiffyStores)
 - Remove hardcoded class references [#16](https://github.com/JustinAiken/active_scheduler/pull/16) (Thanks @kensentor)

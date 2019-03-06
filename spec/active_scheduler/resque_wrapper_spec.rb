@@ -106,9 +106,9 @@ describe ActiveScheduler::ResqueWrapper do
         simple_job = Class.new(ActiveJob::Base) do
           queue_as :myscheduledjobqueue
         end
-        
+
         stub_const("SimpleJob", simple_job)
-        
+
         expect(wrapped['no_queue_job']['queue']).to eq 'myscheduledjobqueue'
       end
     end

@@ -24,7 +24,7 @@ module ActiveScheduler
       schedule.each do |job, opts|
         class_name = opts[:class] || job
         next if class_name =~ /ActiveScheduler::ResqueWrapper/
-        
+
         klass = class_name.constantize
         next unless klass <= ActiveJob::Base
 

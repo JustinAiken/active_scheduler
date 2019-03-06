@@ -1,0 +1,10 @@
+persist_job:
+  every: "30s"
+  queue: "simple"
+  class: "SimpleJob"
+  rails_env: "test"
+  args:
+    - foo-arg-1
+    - foo-arg-2
+  description: "It's a simple job. That persists."
+  persist: true

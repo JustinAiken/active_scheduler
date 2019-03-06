@@ -58,6 +58,27 @@ describe ActiveScheduler::ResqueWrapper do
       end
     end
 
+    context "with a persist key" do
+      let(:schedule) { YAML.load_file 'spec/fixtures/persist_job.yaml' }
+
+      it "queues up a simple job" do
+        stub_jobs("SimpleJob")
+        expect(wrapped['persist_job']).to eq(
+          "class"       => "ActiveScheduler::ResqueWrapper",
+          "queue"       => "simple",
+          "description" => "It's a simple job. That persists.",
+          "every"       => "30s",
+          "rails_env"   => "test",
+          "persist"     => true,
+          "args"        => [{
+            "job_class"  => "SimpleJob",
+            "queue_name" => "simple",
+            "arguments"  => ['foo-arg-1', 'foo-arg-2'],
+          }]
+        )
+      end
+    end
+
     context "with a multiple jobs in the schedule" do
       let(:schedule) { YAML.load_file 'spec/fixtures/two_jobs.yaml' }
 

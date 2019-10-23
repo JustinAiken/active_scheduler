@@ -18,6 +18,10 @@ module ActiveScheduler
       end
     end
 
+    def self.scheduled(_queue, _wrapper_klass, *args)
+      perform(*args)
+    end
+
     def self.wrap(schedule)
       schedule = HashWithIndifferentAccess.new(schedule)
 

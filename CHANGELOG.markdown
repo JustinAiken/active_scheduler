@@ -1,3 +1,7 @@
+# 0.7.0
+- Remove deprecated Rubyforge reference [#19](https://github.com/JustinAiken/active_scheduler/pull/19) (Thanks @kensentor)
+- Implement ActiveScheduler::ResqueWrapper.scheduled [#17](https://github.com/JustinAiken/active_scheduler/pull/17) (Thanks @AMHOL)
+
 # 0.6.0
 
 - Add `persist` option [#15](https://github.com/JustinAiken/active_scheduler/pull/15) (Thanks @SpiffyStores)

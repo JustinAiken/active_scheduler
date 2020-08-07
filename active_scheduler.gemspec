@@ -12,8 +12,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{Scheduling for ActiveJob}
   s.description = %q{A wrapper for scheduling jobs through ActiveJob}
 
-  s.rubyforge_project = "active_scheduler"
-
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
   s.require_paths = ["lib"]

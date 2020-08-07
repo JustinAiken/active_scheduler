@@ -33,6 +33,8 @@ matrix:
     - rvm: 2.1
       env: "RAILS_VERSION=6.0.0"
     - rvm: 2.2
+      env: "RAILS_VERSION=5.1.0"
+    - rvm: 2.2
       env: "RAILS_VERSION=6.0.0"
     - rvm: 2.3
       env: "RAILS_VERSION=6.0.0"

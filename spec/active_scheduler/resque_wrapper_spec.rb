@@ -210,4 +210,21 @@ describe ActiveScheduler::ResqueWrapper do
       end
     end
   end
+
+  describe '.scheduled' do
+    let(:queue_name) { 'test_queue' }
+    let(:job_data) { {'job_class' => 'TestKlass'} }
+
+    before do
+      allow(described_class).to receive(:perform)
+    end
+
+    after do
+      described_class.scheduled(queue_name, described_class, job_data)
+    end
+
+    it 'delegates to .perform with job_data' do
+      expect(described_class).to receive(:perform).with(job_data)
+    end
+  end
 end

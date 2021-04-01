@@ -29,10 +29,14 @@ module ActiveScheduler
         class_name = opts[:class] || job
         next if class_name =~ /#{self.to_s}/
 
-        klass = class_name.constantize
-        next unless klass <= ActiveJob::Base
+        if ActiveScheduler.config.check_jobs_descend_from_active_job
+          klass = class_name.constantize
+          next unless klass <= ActiveJob::Base
+          queue = opts[:queue] || klass.queue_name
+        else
+          queue = opts.fetch(:queue) { raise QueueConfigMissingError, "no queue configured for #{class_name}" }
+        end
 
-        queue = opts[:queue] || klass.queue_name
         args = opts[:args]
         named_args = opts[:named_args] || false
 

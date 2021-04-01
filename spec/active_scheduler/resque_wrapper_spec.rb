@@ -25,16 +25,48 @@ describe ActiveScheduler::ResqueWrapper do
       end
 
       context "job is not an active job descendant" do
-        it "doesn't wrap" do
-          stub_const("SimpleJob", Class.new)
-          expect(wrapped['simple_job']).to eq(
-            "class"       => "SimpleJob",
-            "queue"       => "simple",
-            "description" => "It's a simple job.",
-            "every"       => "30s",
-            "rails_env"   => "test",
-            "args"        => ['foo-arg-1', 'foo-arg-2'],
-          )
+        context "with default configuration" do
+          it "doesn't wrap" do
+            stub_jobs("SimpleJob", base_class: Class.new)
+            expect(wrapped['simple_job']).to eq(
+              "class"       => "SimpleJob",
+              "queue"       => "simple",
+              "description" => "It's a simple job.",
+              "every"       => "30s",
+              "rails_env"   => "test",
+              "args"        => ['foo-arg-1', 'foo-arg-2'],
+            )
+          end
+        end
+
+        context "with a custom guard_with configuration" do
+          let!(:guard_with) do
+            ActiveScheduler.config.guard_with
+          end
+
+          before do
+            ActiveScheduler.config.guard_with = ->(*) { true }
+          end
+
+          after do
+            ActiveScheduler.config.guard_with = guard_with
+          end
+
+          it "wraps the job" do
+            stub_jobs("SimpleJob", base_class: Class.new)
+            expect(wrapped['simple_job']).to eq(
+              "class"       => "ActiveScheduler::ResqueWrapper",
+              "queue"       => "simple",
+              "description" => "It's a simple job.",
+              "every"       => "30s",
+              "rails_env"   => "test",
+              "args"        => [{
+                "job_class"  => "SimpleJob",
+                "queue_name" => "simple",
+                "arguments"  => ['foo-arg-1', 'foo-arg-2'],
+              }]
+            )
+          end
         end
       end
 
@@ -125,14 +157,40 @@ describe ActiveScheduler::ResqueWrapper do
     context "when the queue is blank" do
       let(:schedule) { YAML.load_file 'spec/fixtures/no_queue.yaml' }
 
-      it "uses the job's queue" do
-        simple_job = Class.new(ActiveJob::Base) do
-          queue_as :myscheduledjobqueue
+      context "with default configuration" do
+        it "uses the job's queue" do
+          simple_job = Class.new(ActiveJob::Base) do
+            queue_as :myscheduledjobqueue
+          end
+
+          stub_jobs("SimpleJob", base_class: simple_job)
+
+          expect(wrapped['no_queue_job']['queue']).to eq 'myscheduledjobqueue'
+        end
+      end
+
+      context "with a custom queue_name_resolver configuration" do
+        let!(:queue_name_resolver) do
+          ActiveScheduler.config.queue_name_resolver
         end
 
-        stub_const("SimpleJob", simple_job)
+        before do
+          ActiveScheduler.config.queue_name_resolver = ->(*) { 'test' }
+        end
 
-        expect(wrapped['no_queue_job']['queue']).to eq 'myscheduledjobqueue'
+        after do
+          ActiveScheduler.config.queue_name_resolver = queue_name_resolver
+        end
+
+        it "uses the queue name resolver" do
+          simple_job = Class.new(ActiveJob::Base) do
+            queue_as :myscheduledjobqueue
+          end
+
+          stub_jobs("SimpleJob", base_class: simple_job)
+
+          expect(wrapped['no_queue_job']['queue']).to eq 'test'
+        end
       end
     end
 

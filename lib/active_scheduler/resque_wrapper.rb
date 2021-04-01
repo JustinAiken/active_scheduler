@@ -28,11 +28,9 @@ module ActiveScheduler
       schedule.each do |job, opts|
         class_name = opts[:class] || job
         next if class_name =~ /#{self.to_s}/
+        next unless ActiveScheduler.config.guard_with.(class_name)
 
-        klass = class_name.constantize
-        next unless klass <= ActiveJob::Base
-
-        queue = opts[:queue] || klass.queue_name
+        queue = opts[:queue] || ActiveScheduler.config.queue_name_resolver.(class_name)
         args = opts[:args]
         named_args = opts[:named_args] || false
 

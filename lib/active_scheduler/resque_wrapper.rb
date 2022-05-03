@@ -29,10 +29,7 @@ module ActiveScheduler
         class_name = opts[:class] || job
         next if class_name =~ /#{self.to_s}/
 
-        klass = class_name.constantize
-        next unless klass <= ActiveJob::Base
-
-        queue = opts[:queue] || klass.queue_name
+        queue = opts[:queue]
         args = opts[:args]
         named_args = opts[:named_args] || false
 

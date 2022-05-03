@@ -1,6 +1,0 @@
-no_queue_job:
-  every: "30s"
-  class: "SimpleJob"
-  args:
-    -
-  description: "It's a simple job."

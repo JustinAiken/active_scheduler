@@ -24,20 +24,6 @@ describe ActiveScheduler::ResqueWrapper do
         )
       end
 
-      context "job is not an active job descendant" do
-        it "doesn't wrap" do
-          stub_const("SimpleJob", Class.new)
-          expect(wrapped['simple_job']).to eq(
-            "class"       => "SimpleJob",
-            "queue"       => "simple",
-            "description" => "It's a simple job.",
-            "every"       => "30s",
-            "rails_env"   => "test",
-            "args"        => ['foo-arg-1', 'foo-arg-2'],
-          )
-        end
-      end
-
       context 'with a custom wrapper class' do
         class CustomWrapper < ActiveScheduler::ResqueWrapper
         end
@@ -119,20 +105,6 @@ describe ActiveScheduler::ResqueWrapper do
         stub_jobs("CronJob")
         expect(wrapped['cron_job']['cron']).to eq '* * * *'
         expect(wrapped['cron_job']['every']).to be_nil
-      end
-    end
-
-    context "when the queue is blank" do
-      let(:schedule) { YAML.load_file 'spec/fixtures/no_queue.yaml' }
-
-      it "uses the job's queue" do
-        simple_job = Class.new(ActiveJob::Base) do
-          queue_as :myscheduledjobqueue
-        end
-
-        stub_const("SimpleJob", simple_job)
-
-        expect(wrapped['no_queue_job']['queue']).to eq 'myscheduledjobqueue'
       end
     end
 

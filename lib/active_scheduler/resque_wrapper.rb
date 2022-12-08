@@ -30,7 +30,11 @@ module ActiveScheduler
         next if class_name =~ /#{self.to_s}/
 
         klass = class_name.constantize
-        next unless klass <= ActiveJob::Base
+        active_job_wrapper = defined?(ActiveJobWrapper) && klass.ancestors.include?(ActiveJobWrapper)
+
+        next unless klass <= ActiveJob::Base || active_job_wrapper
+
+        klass = klass::Job if active_job_wrapper
 
         queue = opts[:queue] || klass.queue_name
         args = opts[:args]
@@ -47,7 +51,7 @@ module ActiveScheduler
           class:        self.to_s,
           queue:        queue,
           args: [{
-                   job_class:  class_name,
+                   job_class:  klass.to_s,
                    queue_name: queue,
                    arguments:  args,
                  }]
